@@ -7,6 +7,8 @@ import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import pandas as pd
+from functs import make_lineplot_with_yoybars
+
 
 
 def get_data(all_monthly):
@@ -112,95 +114,24 @@ def register_callbacks(app, all_monthly):
         filtered_df = oil_df.loc[mask]
     
         ### crude oil production plot ###
-        prod_fig = make_subplots(
-            rows=2, cols=1,
-            shared_xaxes=True,
-            row_heights=[0.7, 0.3],  # 70% line plot, 30% bar plot
-            vertical_spacing=0.02,
-            subplot_titles=("Crude Oil Production", " ")
-        )
-        #production
-        prod_fig.add_trace(
-            go.Scatter(
-                x=filtered_df['date'],
-                y=filtered_df['total_crude_oil_prod'],
-                name="Crude Oil Production",
-                mode='lines',
-                line=dict(color='royalblue')
-            ),
-            row=1, col=1
-        )
-        #YoY Change
-        bar_colors = filtered_df['oil_prod_perc_change']
-        prod_fig.add_trace(
-            go.Bar(
-                x=filtered_df['date'],
-                y=filtered_df['oil_prod_perc_change'],
-                marker=dict(
-                    color=bar_colors,
-                    colorscale='RdYlGn',  # red-yellow-green
-                    cmin=bar_colors.min(),
-                    cmax=bar_colors.max(),
-                    colorbar=dict(title="YoY Change"),
-                    showscale = False
-                ),
-            ),
-            row=2, col=1
-        )
-        prod_fig.update_layout(
-            height=500,
-            showlegend=False,
-            title="Crude Oil Production with YoY Change",
-            xaxis2=dict(title="Date"),  # applies to shared x-axis
-            yaxis=dict(title="Production (MMBL/Day)"),
-            yaxis2=dict(title="YoY Change (%)"),
-        )
+        prod_fig = make_lineplot_with_yoybars(filtered_df, main_data= 'total_crude_oil_prod',
+                                               yoy_data = 'oil_prod_perc_change',
+                                               title = 'Crude Oil Production',
+                                               yaxis_label= 'Production (MMBL/Day)',
+                                               color_scale = 'RdYlGn',
+                                               cmin = None, cmax = None)
+        
+
     
     
         ### oil employees plot ###
-        emp_fig = make_subplots(
-            rows=2, cols=1,
-            shared_xaxes=True,
-            row_heights=[0.7, 0.3],  # 70% line plot, 30% bar plot
-            vertical_spacing=0.02,
-            subplot_titles=("Oil Industry Employees", " ")
-        )
-        #counts
-        emp_fig.add_trace(
-            go.Scatter(
-                x=filtered_df['date'],
-                y=filtered_df['oil_employees'],
-                name="Oil Employees",
-                mode='lines',
-                line=dict(color='royalblue')
-            ),
-            row=1, col=1
-        )
-        #YoY Change
-        bar_colors = filtered_df['oil_employee_perc_change']
-        emp_fig.add_trace(
-            go.Bar(
-                x=filtered_df['date'],
-                y=filtered_df['oil_employee_perc_change'],
-                marker=dict(
-                    color=bar_colors,
-                    colorscale='RdYlGn',  # red-yellow-green
-                    cmin=bar_colors.min(),
-                    cmax=bar_colors.max(),
-                    colorbar=dict(title="YoY Change"),
-                    showscale = False
-                ),
-            ),
-            row=2, col=1
-        )
-        emp_fig.update_layout(
-            height=500,
-            showlegend=False,
-            title="Oil Industry Employees with YoY Change",
-            xaxis2=dict(title="Date"),  # applies to shared x-axis
-            yaxis=dict(title="Count (Thousands)"),
-            yaxis2=dict(title="YoY Change (%)"),
-        )
+        emp_fig = make_lineplot_with_yoybars(filtered_df, main_data= 'oil_employees',
+                                               yoy_data = 'oil_employee_perc_change',
+                                               title = 'Oil Industry Employees',
+                                               yaxis_label= 'Count (Thousands)',
+                                               color_scale = 'RdYlGn',
+                                               cmin = None, cmax = None)
+        
         
         ### Bar plot - Latest production by PADD ###
         if not filtered_df.empty:
@@ -223,49 +154,13 @@ def register_callbacks(app, all_monthly):
         )
         
         ### Price Plot ###
-        price_fig = make_subplots(
-            rows=2, cols=1,
-            shared_xaxes=True,
-            row_heights=[0.7, 0.3],  # 70% line plot, 30% bar plot
-            vertical_spacing=0.02,
-            subplot_titles=("Oil Price (West Texas Intermediate)", " ")
-        )
-        #production
-        price_fig.add_trace(
-            go.Scatter(
-                x=filtered_df['date'],
-                y=filtered_df['oil_price'],
-                name="Oil Price",
-                mode='lines',
-                line=dict(color='royalblue')
-            ),
-            row=1, col=1
-        )
-        #YoY Change
-        bar_colors = filtered_df['oil_price_perc_change']
-        price_fig.add_trace(
-            go.Bar(
-                x=filtered_df['date'],
-                y=filtered_df['oil_price_perc_change'],
-                marker=dict(
-                    color=bar_colors,
-                    colorscale='RdYlGn',  # red-yellow-green
-                    cmin=bar_colors.min(),
-                    cmax=bar_colors.max(),
-                    colorbar=dict(title="YoY Change"),
-                    showscale = False
-                ),
-            ),
-            row=2, col=1
-        )
-        price_fig.update_layout(
-            height=500,
-            showlegend=False,
-            title="Crude Oil Price with YoY Change",
-            xaxis2=dict(title="Date"),  # applies to shared x-axis
-            yaxis=dict(title="Price Per Barrel"),
-            yaxis2=dict(title="YoY Change (%)"),
-        )
+        price_fig = make_lineplot_with_yoybars(filtered_df, main_data= 'oil_price',
+                                               yoy_data = 'oil_price_perc_change',
+                                               title = 'Oil Price (West Texas Intermediate)',
+                                               yaxis_label= 'Price Per Barrel',
+                                               color_scale = 'RdYlGn',
+                                               cmin = None, cmax = None)
+        
         
         ### Correlation Heatmap ###
         
