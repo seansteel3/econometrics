@@ -210,7 +210,7 @@ def register_callbacks(app, all_monthly):
     
         # Filter data based on date range if provided
         date_col = filtered_df['date']
-        print(filtered_df['us_gasprice'])
+
         us_gas_price_fig.add_trace(go.Scatter(x=date_col, y=filtered_df['us_gasprice'], name='US avg Gas Price',
                                  line=dict(color='royalblue')))
 
