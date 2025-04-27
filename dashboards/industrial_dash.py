@@ -249,46 +249,13 @@ def register_callbacks(app, all_monthly):
         output_df.dropna(inplace=True)
     
         
-        industry_output = make_subplots(
-            rows=2, cols=1,
-            shared_xaxes=True,
-            row_heights=[0.7, 0.3],
-            vertical_spacing=0.02,
-            subplot_titles=("Total Industry Output", " ")
-        )
-        industry_output.add_trace(
-            go.Scatter(
-                x=output_df['date'],
-                y=output_df['all_output'],
-                name="Total Industry Output",
-                mode='lines',
-                line=dict(color='royalblue')
-            ),
-            row=1, col=1
-        )
-        bar_colors = output_df['all_output_perc_change']
-        industry_output.add_trace(
-            go.Bar(
-                x=output_df['date'],
-                y=output_df['all_output_perc_change'],
-                marker=dict(
-                    color=bar_colors,
-                    colorscale='RdYlGn',
-                    cmin=bar_colors.min(),
-                    cmax=bar_colors.max(),
-                    showscale=False
-                ),
-            ),
-            row=2, col=1
-        )
-        industry_output.update_layout(
-            height=500,
-            showlegend=False,
-            title="Total Industry Output with YoY Change",
-            xaxis2=dict(title="Date"),
-            yaxis=dict(title="Output (Billions $)"),
-            yaxis2=dict(title="YoY Change (%)"),
-        )
+        industry_output = make_lineplot_with_yoybars(output_df, main_data= 'all_output',
+                                               yoy_data = 'all_output_perc_change',
+                                               title = 'Total Industry Output',
+                                               yaxis_label= 'Output (Billions $)',
+                                               color_scale = 'RdYlGn',
+                                               cmin = None, cmax = None)
+        
         
         ### Subcategory Output Plot ###
         sub_output = go.Figure()

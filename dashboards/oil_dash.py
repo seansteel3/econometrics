@@ -196,95 +196,25 @@ def register_callbacks(app, all_monthly):
         
         ### Import Plot ###
     
-        import_fig = make_subplots(
-            rows=2, cols=1,
-            shared_xaxes=True,
-            row_heights=[0.7, 0.3],  # 70% line plot, 30% bar plot
-            vertical_spacing=0.02,
-            subplot_titles=("Oil Imports", " ")
-        )
-        #production
-        import_fig.add_trace(
-            go.Scatter(
-                x=filtered_df['date'],
-                y=filtered_df['total_crude_oil_import'],
-                name="Oil Imports",
-                mode='lines',
-                line=dict(color='purple')
-            ),
-            row=1, col=1
-        )
-        #YoY Change
-        bar_colors = filtered_df['oil_import_perc_change']
-        import_fig.add_trace(
-            go.Bar(
-                x=filtered_df['date'],
-                y=filtered_df['oil_import_perc_change'],
-                marker=dict(
-                    color=bar_colors,
-                    colorscale='RdYlGn',  # red-yellow-green
-                    cmin=bar_colors.min(),
-                    cmax=bar_colors.max(),
-                    colorbar=dict(title="YoY Change"),
-                    showscale = False
-                ),
-            ),
-            row=2, col=1
-        )
-        import_fig.update_layout(
-            height=500,
-            showlegend=False,
-            title="Crude Oil Imports with YoY Change",
-            xaxis2=dict(title="Date"),  # applies to shared x-axis
-            yaxis=dict(title="Mega Barrels of Import"),
-            yaxis2=dict(title="YoY Change (%)"),
-        )
+        import_fig = make_lineplot_with_yoybars(filtered_df, main_data= 'total_crude_oil_import',
+                                               yoy_data = 'oil_import_perc_change',
+                                               title = 'Oil Imports',
+                                               yaxis_label= 'Mega Barrels of Import',
+                                               line_color = 'purple',
+                                               color_scale = 'RdYlGn',
+                                               cmin = None, cmax = None)
+    
         
         ### Export Plot ###
     
-        export_fig = make_subplots(
-            rows=2, cols=1,
-            shared_xaxes=True,
-            row_heights=[0.7, 0.3],  # 70% line plot, 30% bar plot
-            vertical_spacing=0.02,
-            subplot_titles=("Oil Exports", " ")
-        )
-        #production
-        export_fig.add_trace(
-            go.Scatter(
-                x=filtered_df['date'],
-                y=filtered_df['total_crude_oil_export'],
-                name="Oil Exports",
-                mode='lines',
-                line=dict(color='darkgreen')
-            ),
-            row=1, col=1
-        )
-        #YoY Change
-        bar_colors = filtered_df['oil_export_perc_change']
-        export_fig.add_trace(
-            go.Bar(
-                x=filtered_df['date'],
-                y=filtered_df['oil_export_perc_change'],
-                marker=dict(
-                    color=bar_colors,
-                    colorscale='RdYlGn',  # red-yellow-green
-                    cmin=bar_colors.min(),
-                    cmax=bar_colors.max(),
-                    colorbar=dict(title="YoY Change"),
-                    showscale = False
-                ),
-            ),
-            row=2, col=1
-        )
-        export_fig.update_layout(
-            height=500,
-            showlegend=False,
-            title="Crude Oil Exports with YoY Change",
-            xaxis2=dict(title="Date"),  # applies to shared x-axis
-            yaxis=dict(title="Mega Barrels of Export"),
-            yaxis2=dict(title="YoY Change (%)"),
-        )
-    
+        export_fig = make_lineplot_with_yoybars(filtered_df, main_data= 'total_crude_oil_export',
+                                               yoy_data = 'oil_export_perc_change',
+                                               title = 'Oil Exports',
+                                               yaxis_label= 'Mega Barrels of Export',
+                                               line_color = 'darkgreen',
+                                               color_scale = 'RdYlGn',
+                                               cmin = None, cmax = None)
+        
+        
         return prod_fig, emp_fig, bar_fig, price_fig, heatmap, import_fig, export_fig, start_date, end_date
     
