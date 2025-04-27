@@ -64,3 +64,30 @@ def make_lineplot_with_yoybars(df, main_data, yoy_data, title, yaxis_label, colo
     
     return fig
 
+
+def generate_basic_heatmap(df, columns, new_column_names, width=800, height=800):
+    df = df.copy()
+    df = df[columns]
+    
+    df.columns = new_column_names
+    
+    corr_matrix = df.corr(numeric_only=True)
+    heatmap = go.Figure(data=go.Heatmap(
+        z=corr_matrix.values,
+        x=corr_matrix.columns,
+        y=corr_matrix.index,
+        colorscale='RdBu',
+        zmin=-1, zmax=1,
+        colorbar=dict(title="Correlation")
+    ))
+
+    heatmap.update_layout(
+        title="Pearson Correlations",
+        #xaxis_title="Variables",
+        #yaxis_title="Variables",
+        xaxis_showgrid=False,
+        yaxis_showgrid=False,
+        width=width,
+        height=height
+    )
+    return heatmap

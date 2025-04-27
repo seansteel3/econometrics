@@ -291,8 +291,8 @@ def register_callbacks(app, all_monthly):
                                                color_scale = 'RdYlGn',
                                                cmin = None, cmax = None)
         
-        financeemp = make_lineplot_with_yoybars(filtered_df, main_data= 'finace_employees',
-                                               yoy_data = 'finace_employees_perc_change',
+        financeemp = make_lineplot_with_yoybars(filtered_df, main_data= 'finance_employees',
+                                               yoy_data = 'finance_employees_perc_change',
                                                title = 'Finace Employees',
                                                yaxis_label= 'Thousands',
                                                color_scale = 'RdYlGn',
@@ -407,7 +407,7 @@ def register_callbacks(app, all_monthly):
                         'participation_16_19_rate', 'participation_20_24_rate', 
                         'participation_25_54_rate','participation_55+_rate', 
                         'truck_employees', 'it_employees', 'wholesale_employees',
-                        'finace_employees', 'health_employees', 'federal_employees']]
+                        'finance_employees', 'health_employees', 'federal_employees']]
         
         filtered_df2.columns = ['All Emp', 'Job Openings','Layoffs',
                                 'Unemployment', 'total partrate', '16-19 partrate',

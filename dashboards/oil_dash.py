@@ -7,7 +7,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import pandas as pd
-from functs import make_lineplot_with_yoybars
+from functs import make_lineplot_with_yoybars, generate_basic_heatmap
 
 
 
@@ -163,36 +163,16 @@ def register_callbacks(app, all_monthly):
         
         
         ### Correlation Heatmap ###
-        
-        filtered_df2 = filtered_df.copy()
-        filtered_df2 = filtered_df2[['total_crude_oil_prod', 'oil_prod_perc_change',
+        columns_heatmap = ['total_crude_oil_prod', 'oil_prod_perc_change',
                        'oil_employees', 'oil_employee_perc_change', 'total_crude_oil_import', 
                         'total_crude_oil_export', 'oil_price', 'us_gasprice', 'cpi_all',
-                       'inflation_rate']]
+                       'inflation_rate']
         
-        filtered_df2.columns = ['oil production', 'prodction YoY',
+        names_heatmap = ['oil production', 'prodction YoY',
                        'employees', 'employees YoY', 'imports', 'exports', 
                        'price', 'gas price', 'cpi', 'inflation rate']
         
-        corr_matrix = filtered_df2.corr(numeric_only=True)
-        heatmap = go.Figure(data=go.Heatmap(
-            z=corr_matrix.values,
-            x=corr_matrix.columns,
-            y=corr_matrix.index,
-            colorscale='RdBu',
-            zmin=-1, zmax=1,
-            colorbar=dict(title="Correlation")
-        ))
-    
-        heatmap.update_layout(
-            title="Pearson Correlations",
-            #xaxis_title="Variables",
-            #yaxis_title="Variables",
-            xaxis_showgrid=False,
-            yaxis_showgrid=False,
-            width=500,
-            height=500
-        )
+        heatmap = generate_basic_heatmap(filtered_df, columns_heatmap, names_heatmap)
         
         ### Import Plot ###
     
