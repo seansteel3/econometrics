@@ -72,7 +72,7 @@ def get_data(all_monthly):
     emp_cols = ['manufact_employee', 'all_employees', 'job_opening', 'layoffs', 
                 'agriculture_employees', 'mining_employees', 'wholesale_employees', 
                 'truck_employees', 'it_employees', 'retail_employees', 'leisure_employees', 
-                'finace_employees', 'construction_employees', 'federal_employees',
+                'finance_employees', 'construction_employees', 'federal_employees',
                 'buisness_employees', 'health_employees', 'other_employees']  
     
     rate_cols = ['unemployment', 'participation_rate', 'participation_25_54_rate', 'participation_55+_rate', 

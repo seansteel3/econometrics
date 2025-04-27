@@ -122,6 +122,26 @@ def get_layout(all_monthly):
     
          
         html.Div([
+            html.Div([dcc.Graph(id='energycpi-fig')], style={'width': '48%', 'display': 'inline-block'}),
+            html.Div([dcc.Graph(id='foodcpi-fig')], style={'width': '48%', 'display': 'inline-block'}),
+        ], style={'width': '100%', 'paddingTop': '20px'}),
+        
+        html.Div([
+            html.Div([dcc.Graph(id='airfarecpi-fig')], style={'width': '48%', 'display': 'inline-block'}),
+            html.Div([dcc.Graph(id='transportcpi-fig')], style={'width': '48%', 'display': 'inline-block'}),
+        ], style={'width': '100%', 'paddingTop': '20px'}),
+    
+         html.Div([
+             html.Div([dcc.Graph(id='sheltercpi-fig')], style={'width': '48%', 'display': 'inline-block'}),
+             html.Div([dcc.Graph(id='servicescpi-fig')], style={'width': '48%', 'display': 'inline-block'}),
+         ], style={'width': '100%', 'paddingTop': '20px'}),
+        
+        html.Div([
+            html.Div([dcc.Graph(id='usedcarcpi-fig')], style={'width': '48%', 'display': 'inline-block'}),
+            html.Div([dcc.Graph(id='newcarcpi-fig')], style={'width': '48%', 'display': 'inline-block'}),
+        ], style={'width': '100%', 'paddingTop': '20px'}),
+        
+        html.Div([
             html.Div([dcc.Graph(id='egg-fig')], style={'width': '48%', 'display': 'inline-block'}),
             html.Div([dcc.Graph(id='oj-fig')], style={'width': '48%', 'display': 'inline-block'}),
         ], style={'width': '100%', 'paddingTop': '20px'}),
@@ -142,25 +162,6 @@ def get_layout(all_monthly):
             html.Div([dcc.Graph(id='strawberry-fig')], style={'width': '48%', 'display': 'inline-block'}),
         ], style={'width': '100%', 'paddingTop': '20px'}),
         
-        html.Div([
-            html.Div([dcc.Graph(id='energycpi-fig')], style={'width': '48%', 'display': 'inline-block'}),
-            html.Div([dcc.Graph(id='foodcpi-fig')], style={'width': '48%', 'display': 'inline-block'}),
-        ], style={'width': '100%', 'paddingTop': '20px'}),
-        
-        html.Div([
-            html.Div([dcc.Graph(id='airfarecpi-fig')], style={'width': '48%', 'display': 'inline-block'}),
-            html.Div([dcc.Graph(id='transportcpi-fig')], style={'width': '48%', 'display': 'inline-block'}),
-        ], style={'width': '100%', 'paddingTop': '20px'}),
-    
-         html.Div([
-             html.Div([dcc.Graph(id='sheltercpi-fig')], style={'width': '48%', 'display': 'inline-block'}),
-             html.Div([dcc.Graph(id='servicescpi-fig')], style={'width': '48%', 'display': 'inline-block'}),
-         ], style={'width': '100%', 'paddingTop': '20px'}),
-        
-        html.Div([
-            html.Div([dcc.Graph(id='usedcarcpi-fig')], style={'width': '48%', 'display': 'inline-block'}),
-            html.Div([dcc.Graph(id='newcarcpi-fig')], style={'width': '48%', 'display': 'inline-block'}),
-        ], style={'width': '100%', 'paddingTop': '20px'}),
         
         
     ])
