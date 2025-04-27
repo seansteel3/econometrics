@@ -8,7 +8,7 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import pandas as pd
 import numpy as np
-from functs import make_lineplot_with_yoybars
+from functs import make_lineplot_with_yoybars, generate_basic_heatmap
 
 
 def get_data(all_monthly):
@@ -22,7 +22,7 @@ def get_data(all_monthly):
     
     price_cols = ['egg_price', 'oj_price', 'bread_price', 'ground_beef_price', 
                   #'chicken_price',  #starts 2006
-                  'tomato_price', 'strawberry_price', 'coffee_price', 'bananas_price'
+                  'tomato_price', 'strawberry_price', 'coffee_price', 'bananas_price', 'us_gasprice', 'oil_price'
                   ]
 
 
@@ -106,7 +106,10 @@ def get_layout(all_monthly):
             html.Div([dcc.Graph(id='strawberry-fig')], style={'width': '48%', 'display': 'inline-block'}),
         ], style={'width': '100%', 'paddingTop': '20px'}),
         
-        
+        html.Div([
+            html.Div([dcc.Graph(id='heatmap-price-fig')], style={'width': '100%', 'display': 'inline-block'})
+        ], style={'width': '100%', 'display': 'flex', 'justify-content': 'space-between'}),
+    
         
     ])
     return layout
@@ -134,6 +137,7 @@ def register_callbacks(app, all_monthly):
          Output('servicescpi-fig', 'figure'),
          Output('airfarecpi-fig', 'figure'),
          Output('transportcpi-fig', 'figure'),
+         Output('heatmap-price-fig', 'figure'),
          
          
          Output('date-picker-prices', 'start_date'),
@@ -300,11 +304,24 @@ def register_callbacks(app, all_monthly):
                                                color_scale = 'RdYlGn_r',
                                                cmin = None, cmax = None)
         
+        columns_heatmap = ['inflation_rate', 'cpi_all', 'cpi_food', 'cpi_energy',
+                           'cpi_shelter', 'cpi_services', 'cpi_transport', 'tomato_price',
+                           'strawberry_price', 'bananas_price', 'coffee_price', 
+                           'egg_price', 'oj_price', 'us_gasprice', 'oil_price']
+        
+        names_heatmap = ['inflation rate', 'overall cpi', 'food cpi', 'energy cpi',
+                           'shelter cpi', 'services cpi', 'transport cpi', 'tomato price',
+                           'strawberry price', 'banana price', 'coffee price', 
+                           'egg price', 'oj price', 'gas price', 'oil price']
+        
+        heatmap = generate_basic_heatmap(filtered_df, columns_heatmap, names_heatmap,
+                                         width=750, height=750)
+        
         
         return (inflation_fig, eggs_price, oj_price, bread_price, ground_beef_price, 
                 coffee_price, bananas_price,
                 tomato_price, strawberry_price, cpi_energy, cpi_food, 
                 cpi_used_car, cpi_new_car, cpi_shelter, cpi_services, cpi_airfare, 
-                cpi_transport, start_date, end_date)
+                cpi_transport, heatmap, start_date, end_date)
     
 

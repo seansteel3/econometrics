@@ -172,7 +172,8 @@ def register_callbacks(app, all_monthly):
                        'employees', 'employees YoY', 'imports', 'exports', 
                        'price', 'gas price', 'cpi', 'inflation rate']
         
-        heatmap = generate_basic_heatmap(filtered_df, columns_heatmap, names_heatmap)
+        heatmap = generate_basic_heatmap(filtered_df, columns_heatmap, names_heatmap,
+                                         width=500, height=500)
         
         ### Import Plot ###
     
