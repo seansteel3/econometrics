@@ -198,6 +198,13 @@ def get_layout(all_monthly):
     
     return layout
     
+(unemp, allemp, jobopen, layoff, agremp, mineemp, wholeemp, truckemp,
+        itemp, retailemp, leisureemp, financeemp, constructemp, manufact,
+        fedemp, buisnessemp, healthemp, otheremp,participation,
+        women_part, men_part, part_16_19, part_20_24, part_25_55, part_55,
+        part_immg, heatmap,
+        start_date, end_date)
+
 def register_callbacks(app, all_monthly):
     
     emp_df = get_data(all_monthly)
