@@ -72,7 +72,8 @@ def get_data(all_monthly):
     emp_cols = ['manufact_employee', 'all_employees', 'job_opening', 'layoffs', 
                 'agriculture_employees', 'mining_employees', 'wholesale_employees', 
                 'truck_employees', 'it_employees', 'retail_employees', 'leisure_employees', 
-                'finace_employees', 'construction_employees']  
+                'finace_employees', 'construction_employees', 'federal_employees',
+                'buisness_employees', 'health_employees', 'other_employees']  
     
     rate_cols = ['unemployment', 'participation_rate', 'participation_25_54_rate', 'participation_55+_rate', 
                  'participation_16_19_rate', 'participation_20_24_rate', 
@@ -132,6 +133,11 @@ def get_layout(all_monthly):
         ], style={'width': '100%', 'display': 'flex', 'justify-content': 'space-between'}),
         
         html.Div([
+            html.Div([dcc.Graph(id='fed-fig')], style={'width': '48%', 'display': 'inline-block'}),
+            html.Div([dcc.Graph(id='buisness-fig')], style={'width': '48%', 'display': 'inline-block'}),
+        ], style={'width': '100%', 'paddingTop': '20px'}),
+        
+        html.Div([
             html.Div([dcc.Graph(id='agremp-fig')], style={'width': '48%', 'display': 'inline-block'}),
             html.Div([dcc.Graph(id='mineemp-fig')], style={'width': '48%', 'display': 'inline-block'}),
         ], style={'width': '100%', 'paddingTop': '20px'}),
@@ -154,6 +160,11 @@ def get_layout(all_monthly):
         html.Div([
             html.Div([dcc.Graph(id='itemp-fig')], style={'width': '48%', 'display': 'inline-block'}),
             html.Div([dcc.Graph(id='financeemp-fig')], style={'width': '48%', 'display': 'inline-block'}),
+        ], style={'width': '100%', 'paddingTop': '20px'}),
+        
+        html.Div([
+            html.Div([dcc.Graph(id='health-fig')], style={'width': '48%', 'display': 'inline-block'}),
+            html.Div([dcc.Graph(id='other-fig')], style={'width': '48%', 'display': 'inline-block'}),
         ], style={'width': '100%', 'paddingTop': '20px'}),
         
         html.Div([
@@ -187,7 +198,6 @@ def get_layout(all_monthly):
     
     return layout
     
-    
 def register_callbacks(app, all_monthly):
     
     emp_df = get_data(all_monthly)
@@ -207,6 +217,10 @@ def register_callbacks(app, all_monthly):
          Output('financeemp-fig', 'figure'),
          Output('constructemp-fig', 'figure'),
          Output('manufact-fig', 'figure'),
+         Output('fed-fig', 'figure'),
+         Output('buisness-fig', 'figure'),
+         Output('health-fig', 'figure'),
+         Output('other-fig', 'figure'),         
          Output('participation-fig', 'figure'),
          Output('women_part-fig', 'figure'),
          Output('men_part-fig', 'figure'),
@@ -348,6 +362,33 @@ def register_callbacks(app, all_monthly):
                                                yaxis_label= 'Thousands',
                                                color_scale = 'RdYlGn',
                                                cmin = None, cmax = None)
+        
+        fedemp = make_lineplot_with_yoybars(filtered_df, main_data= 'federal_employees',
+                                               yoy_data = 'federal_employees_perc_change',
+                                               title = 'Federal Government Employees',
+                                               yaxis_label= 'Thousands',
+                                               color_scale = 'RdYlGn',
+                                               cmin = None, cmax = None)
+        
+        buisnessemp = make_lineplot_with_yoybars(filtered_df, main_data= 'buisness_employees',
+                                               yoy_data = 'buisness_employees_perc_change',
+                                               title = 'Buisness Services Employees',
+                                               yaxis_label= 'Thousands',
+                                               color_scale = 'RdYlGn',
+                                               cmin = None, cmax = None)
+        
+        healthemp = make_lineplot_with_yoybars(filtered_df, main_data= 'health_employees',
+                                               yoy_data = 'health_employees_perc_change',
+                                               title = 'Healthcare Employees',
+                                               yaxis_label= 'Thousands',
+                                               color_scale = 'RdYlGn',
+                                               cmin = None, cmax = None), 
+        otheremp  = make_lineplot_with_yoybars(filtered_df, main_data= 'other_employees',
+                                               yoy_data = 'other_employees_perc_change',
+                                               title = 'Other Services Employees',
+                                               yaxis_label= 'Thousands',
+                                               color_scale = 'RdYlGn',
+                                               cmin = None, cmax = None), 
     
         participation = make_lineplot_with_yoybars(filtered_df, main_data= 'participation_rate',
                                                yoy_data = 'participation_rate_perc_change',
@@ -416,12 +457,13 @@ def register_callbacks(app, all_monthly):
                         'participation_16_19_rate', 'participation_20_24_rate', 
                         'participation_25_54_rate','participation_55+_rate', 
                         'truck_employees', 'it_employees', 'wholesale_employees',
-                        'finace_employees']]
+                        'finace_employees', 'health_employees', 'federal_employees']]
         
         filtered_df2.columns = ['All Emp', 'Job Openings','Layoffs',
                                 'Unemployment', 'total partrate', '16-19 partrate',
                                 '20-24 partrate', '25-55 partrate', '55+ partrate',
-                                'truck Emp', 'IT Emp', 'Wholesale Emp', 'Finance Emp']
+                                'Truck Emp', 'IT Emp', 'Wholesale Emp', 'Finance Emp',
+                                'Health Emp', 'Gov Emp']
         
         corr_matrix = filtered_df2.corr(numeric_only=True)
         heatmap = go.Figure(data=go.Heatmap(
@@ -445,7 +487,7 @@ def register_callbacks(app, all_monthly):
         
         return (unemp, allemp, jobopen, layoff, agremp, mineemp, wholeemp, truckemp,
                 itemp, retailemp, leisureemp, financeemp, constructemp, manufact,
-                participation,
+                participation, fedemp, buisnessemp, healthemp, otheremp,
                 women_part, men_part, part_16_19, part_20_24, part_25_55, part_55,
                 part_immg, heatmap,
                 start_date, end_date)
