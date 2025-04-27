@@ -377,7 +377,7 @@ def register_callbacks(app, all_monthly):
                                                title = 'Buisness Services Employees',
                                                yaxis_label= 'Thousands',
                                                color_scale = 'RdYlGn',
-                                               cmin = None, cmax = None)
+                                               cmin = None, cmax = None),
         
         healthemp = make_lineplot_with_yoybars(filtered_df, main_data= 'buisness_employees',
                                                yoy_data = 'buisness_employees_perc_change',
