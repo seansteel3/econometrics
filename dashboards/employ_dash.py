@@ -377,21 +377,21 @@ def register_callbacks(app, all_monthly):
                                                title = 'Buisness Services Employees',
                                                yaxis_label= 'Thousands',
                                                color_scale = 'RdYlGn',
-                                               cmin = None, cmax = None),
+                                               cmin = None, cmax = None)
         
-        healthemp = make_lineplot_with_yoybars(filtered_df, main_data= 'buisness_employees',
-                                               yoy_data = 'buisness_employees_perc_change',
+        healthemp = make_lineplot_with_yoybars(filtered_df, main_data= 'health_employees',
+                                               yoy_data = 'health_employees_perc_change',
                                                title = 'Healthcare Employees',
                                                yaxis_label= 'Thousands',
                                                color_scale = 'RdYlGn',
-                                               cmin = None, cmax = None), 
+                                               cmin = None, cmax = None)
         
-        otheremp  = make_lineplot_with_yoybars(filtered_df, main_data= 'buisness_employees',
-                                               yoy_data = 'buisness_employees_perc_change',
+        otheremp  = make_lineplot_with_yoybars(filtered_df, main_data= 'other_employees',
+                                               yoy_data = 'other_employees_perc_change',
                                                title = 'Other Services Employees',
                                                yaxis_label= 'Thousands',
                                                color_scale = 'RdYlGn',
-                                               cmin = None, cmax = None), 
+                                               cmin = None, cmax = None)
     
         participation = make_lineplot_with_yoybars(filtered_df, main_data= 'participation_rate',
                                                yoy_data = 'participation_rate_perc_change',
