@@ -16,7 +16,7 @@ def make_lineplot_with_yoybars(df, main_data, yoy_data, title, yaxis_label, colo
         shared_xaxes=True,
         row_heights=[0.7, 0.3],  # 70% line plot, 30% bar plot
         vertical_spacing=0.02,
-        subplot_titles=(f"{title}", " ")
+        #subplot_titles=(f"{title}", " ")
     )
     
 
