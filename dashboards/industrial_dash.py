@@ -108,6 +108,7 @@ def get_layout(all_monthly):
     
     ind_df, cpi_2016 = get_data(all_monthly)
     
+    
     layout = html.Div([
         html.H2("Industry Dashboard"),
 

@@ -116,7 +116,7 @@ def get_layout(all_monthly):
                         'textAlign': 'center',
                         'marginTop': '10px',
                         'fontSize': '16px',
-                        'color': 'gray'
+                        'color': 'black'
                     }
                 )
             ], style={'width': '100%', 'display': 'inline-block'}),
@@ -172,12 +172,14 @@ def register_callbacks(app, all_monthly):
             yaxis=dict(
                 title='Rolling Pearson Correlation',
                 side='left',
-                range=[-1, 1]
+                range=[-1, 1],
+                color='blue'
             ),
             yaxis2=dict(
                 title='Rolling Beta',
                 overlaying='y',
-                side='right'
+                side='right',
+                color='orange'
             ),
             width=1000,
             height=500,
