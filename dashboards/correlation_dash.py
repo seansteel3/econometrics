@@ -125,7 +125,7 @@ def get_layout(all_monthly):
     
     html.Div([
         html.Div([dcc.Graph(id='scatter-corr')], style={'width': '48%', 'display': 'inline-block'}),
-        #html.Div([dcc.Graph(id='truckemp-fig')], style={'width': '48%', 'display': 'inline-block'}),
+        html.Div([dcc.Graph(id='dualline-corr')], style={'width': '48%', 'display': 'inline-block'}),
     ], style={'width': '100%', 'paddingTop': '20px'}),
     
     
@@ -139,7 +139,7 @@ def register_callbacks(app, all_monthly):
     
     corr_df, col_renames = get_data(all_monthly)
     
-    def update_lineplot(clickData, filtered_df, window = 12):
+    def update_betaplot(clickData, filtered_df, window = 12):
         if clickData is None:
             return go.Figure()
     
@@ -219,7 +219,8 @@ def register_callbacks(app, all_monthly):
         feature1 = clickData['points'][0]['x']
         feature2 = clickData['points'][0]['y']
         
-        reg_df = filtered_df[[feature1, feature2]]
+        reg_df = filtered_df.copy()
+        reg_df = reg_df[[feature1, feature2]]
         reg_df.dropna(inplace = True)
         
         slope, intercept = np.polyfit(reg_df[feature1], reg_df[feature2], 1)
@@ -260,16 +261,68 @@ def register_callbacks(app, all_monthly):
             width=1000,
             height=500,
         )
-
         
         return fig
-        
+    
+    def update_duallineplot(clickData, filtered_df):
+        if clickData is None:
+            return go.Figure()
+    
+        # Parse clicked features
+        feature1 = clickData['points'][0]['x']
+        feature2 = clickData['points'][0]['y']
+            
+        fig = go.Figure()
+    
+        fig.add_trace(go.Scatter(
+                x=filtered_df['date'],
+                y=filtered_df[feature1],
+                name=feature1,
+                yaxis='y1',
+                line=dict(color='green')
+            ))
+    
+        fig.add_trace(go.Scatter(
+                x=filtered_df['date'],
+                y=filtered_df[feature2],
+                name=feature2,
+                yaxis='y2',
+                line=dict(color='purple')
+            ))
+    
+        fig.update_layout(
+            title=f"Line Plot: {feature1} vs {feature2}",
+            xaxis=dict(title='Date'),
+            yaxis=dict(
+                title=feature1,
+                side='left',
+                color='green'
+            ),
+            yaxis2=dict(
+                title=feature2,
+                overlaying='y',
+                side='right',
+                color='purple'
+            ),
+            width=1000,
+            height=500,
+            legend=dict(
+                orientation="h",  # Horizontal legend
+                y=-0.25,  # Position it above the plot
+                x=0.5,  # Center horizontally
+                xanchor="center",  # Align legend to the center
+                yanchor="bottom"   # Align to the bottom of the legend box
+            )
+        )
+    
+        return fig
         
 
     @app.callback(
         [Output('corr-heatmap', 'figure'),
          Output('rolling-corr', 'figure'),
          Output('scatter-corr', 'figure'),
+         Output('dualline-corr', 'figure'),
          
          Output('date-picker-corr', 'start_date'),
          Output('date-picker-corr', 'end_date'),],
@@ -305,11 +358,13 @@ def register_callbacks(app, all_monthly):
                                          ['SP500', 'Rut2000', 'Gold', 'DXY', 'CHY', 'Euro'] + col_renames,
                                          width=900, height=900, title = False)
         
-        corr_fig = update_lineplot(clickData, filtered_df, window = 12)
+        corr_fig = update_betaplot(clickData, filtered_df, window = 12)
         
         scatter_fig = update_scatter(clickData, filtered_df)
+        
+        dualline_fig = update_duallineplot(clickData, filtered_df)
     
-        return heatmap, corr_fig, scatter_fig, start_date, end_date
+        return heatmap, corr_fig, scatter_fig, dualline_fig, start_date, end_date
 
 
 
