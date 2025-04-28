@@ -31,6 +31,8 @@ from dashboards.gas_dash import get_layout as get_layout4
 from dashboards.gas_dash import register_callbacks as register_callbacks4
 from dashboards.employ_dash import get_layout as get_layout5
 from dashboards.employ_dash import register_callbacks as register_callbacks5
+from dashboards.correlation_dash import get_layout as get_layout6
+from dashboards.correlation_dash import register_callbacks as register_callbacks6
 
 def main():
     
@@ -198,12 +200,16 @@ def main():
             return get_layout4(all_monthly)
         elif tab == 'tab5':
             return get_layout5(all_monthly)
+        elif tab == 'tab6':
+            return get_layout6(all_monthly)
         
     register_callbacks1(app, all_monthly)
     register_callbacks2(app, all_monthly)
     register_callbacks3(app, all_monthly)
     register_callbacks4(app, all_monthly)
     register_callbacks5(app, all_monthly)
+    register_callbacks6(app, all_monthly)
+
 
     
     app.run(debug=False)

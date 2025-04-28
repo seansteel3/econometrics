@@ -65,7 +65,7 @@ def make_lineplot_with_yoybars(df, main_data, yoy_data, title, yaxis_label, colo
     return fig
 
 
-def generate_basic_heatmap(df, columns, new_column_names, width=800, height=800):
+def generate_basic_heatmap(df, columns, new_column_names, width=800, height=800, title = True):
     df = df.copy()
     df = df[columns]
     
@@ -80,14 +80,37 @@ def generate_basic_heatmap(df, columns, new_column_names, width=800, height=800)
         zmin=-1, zmax=1,
         colorbar=dict(title="Correlation")
     ))
-
-    heatmap.update_layout(
-        title="Pearson Correlations",
-        #xaxis_title="Variables",
-        #yaxis_title="Variables",
-        xaxis_showgrid=False,
-        yaxis_showgrid=False,
-        width=width,
-        height=height
-    )
+    
+    if title:
+        heatmap.update_layout(
+            title="Pearson Correlations",
+            #xaxis_title="Variables",
+            #yaxis_title="Variables",
+            xaxis_showgrid=False,
+            yaxis_showgrid=False,
+            width=width,
+            height=height
+        )
+    else:
+        heatmap.update_layout(
+            #title="Pearson Correlations",
+            #xaxis_title="Variables",
+            #yaxis_title="Variables",
+            xaxis_showgrid=False,
+            yaxis_showgrid=False,
+            width=width,
+            height=height
+        )
     return heatmap
+
+def linreg(x,y):
+    mean_x = x.rolling(window=12).mean()
+    mean_y = y.rolling(window=12).mean()
+    cov_xy = (x * y).rolling(window=12).mean() - mean_x * mean_y
+
+    # Rolling variance
+    var_x = (x * x).rolling(window=12).mean() - mean_x * mean_x
+    
+    # Rolling beta
+    beta = cov_xy / var_x
+    return beta
