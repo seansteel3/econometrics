@@ -236,7 +236,10 @@ def register_callbacks(app, all_monthly):
         feature1 = clickData['points'][0]['x']
         feature2 = clickData['points'][0]['y']
         
-        slope, intercept = np.polyfit(filtered_df[feature1], filtered_df[feature2], 1)
+        reg_df = filtered_df[[feature1, feature2]]
+        reg_df.dropna(inplace = True)
+        
+        slope, intercept = np.polyfit(reg_df[feature1], reg_df[feature2], 1)
         
         # Create scatter plot
         fig = go.Figure()
