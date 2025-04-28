@@ -249,7 +249,11 @@ def register_callbacks(app, all_monthly):
             y=filtered_df[feature2],
             mode='markers',
             name=f'Scatter: {feature1} vs {feature2}',
-            color = 'blue'
+            marker=dict(
+                color='blue',        # Marker color
+                #size=8,              # (optional) Marker size
+                #opacity=0.7          # (optional) Marker opacity
+            )
         ))
         
         #regression line
