@@ -218,25 +218,14 @@ def register_callbacks(app, all_monthly):
         feature1 = clickData['points'][0]['x']
         feature2 = clickData['points'][0]['y']
         
-        fig = go.Figure()
-    
-        fig.add_trace(go.Scatter(
-                x=filtered_df[feature1],
-                y=filtered_df[feature2],
-                name='Scatter: {feature1} vs {feature2}',
-                yaxis='y1',
-                trendline = "ols"
-            ))
-        
-        fig.update_layout(
+        fig = px.scatter(
+            filtered_df,
+            x=feature1,
+            y=feature2,
             title=f"Scatter Plot: {feature1} vs {feature2}",
-            xaxis=dict(title=feature1),
-            yaxis=dict(
-                title=feature2
-            ),
-            
+            trendline="ols",
             width=1000,
-            height=500,
+            height=500
         )
         
         return fig
