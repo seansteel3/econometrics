@@ -123,12 +123,13 @@ def get_layout(all_monthly):
         ], style={'width': '100%', 'display': 'flex', 'justify-content': 'space-between'}),
 
     
-    html.Div([
-        html.Div([dcc.Graph(id='scatter-corr')], style={'width': '48%', 'display': 'inline-block'}),
-        html.Div([dcc.Graph(id='dualline-corr')], style={'width': '48%', 'display': 'inline-block'}),
-    ], style={'width': '100%', 'paddingTop': '20px'}),
-    
-    
+   html.Div([
+       html.Div([dcc.Graph(id='dualline-corr')], style={'width': '100%', 'display': 'inline-block'}),
+   ], style={'width': '100%', 'display': 'flex', 'justify-content': 'space-between'}),
+   
+   html.Div([
+       html.Div([dcc.Graph(id='scatter-corr')], style={'width': '100%', 'display': 'inline-block'}),
+   ], style={'width': '100%', 'display': 'flex', 'justify-content': 'space-between'}),
         
     ])
 
