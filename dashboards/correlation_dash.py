@@ -247,8 +247,9 @@ def register_callbacks(app, all_monthly):
         fig.add_trace(go.Scatter(
             x=filtered_df[feature1],
             y=filtered_df[feature2],
-            mode=dict(color='blue'),
-            name=f'Scatter: {feature1} vs {feature2}'
+            mode='markers',
+            name=f'Scatter: {feature1} vs {feature2}',
+            color = 'blue'
         ))
         
         #regression line
