@@ -183,6 +183,7 @@ def main():
             dcc.Tab(label='Price Report', value='tab3'),
             dcc.Tab(label='Gas Price Report', value='tab4'),
             dcc.Tab(label='Employment Report', value='tab5'),
+            dcc.Tab(label='Correlation Report', value='tab6'),
              #Add more tabs
         ]),
         html.Div(id='tab-content')
