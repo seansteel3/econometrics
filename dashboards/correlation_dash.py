@@ -211,6 +211,7 @@ def register_callbacks(app, all_monthly):
     
     
     def update_scatter(clickData, filtered_df):
+        '''
         if clickData is None:
             return go.Figure()
         
@@ -227,6 +228,46 @@ def register_callbacks(app, all_monthly):
             width=1000,
             height=500
         )
+        '''
+        if clickData is None:
+            return go.Figure()
+        
+        # Parse clicked features
+        feature1 = clickData['points'][0]['x']
+        feature2 = clickData['points'][0]['y']
+        
+        slope, intercept = np.polyfit(filtered_df[feature1], filtered_df[feature2], 1)
+        
+        # Create scatter plot
+        fig = go.Figure()
+        
+        fig.add_trace(go.Scatter(
+            x=filtered_df[feature1],
+            y=filtered_df[feature2],
+            mode=dict(color='blue'),
+            name=f'Scatter: {feature1} vs {feature2}'
+        ))
+        
+        #regression line
+        x_vals = np.array([filtered_df[feature1].min(), filtered_df[feature1].max()])
+        y_vals = intercept + slope * x_vals
+        
+        fig.add_trace(go.Scatter(
+            x=x_vals,
+            y=y_vals,
+            mode='lines',
+            name='OLS Trendline',
+            line=dict(color='red')
+        ))
+        
+        fig.update_layout(
+            title=f"Scatter Plot: {feature1} vs {feature2}",
+            xaxis=dict(title=feature1),
+            yaxis=dict(title=feature2),
+            width=1000,
+            height=500,
+        )
+
         
         return fig
         
