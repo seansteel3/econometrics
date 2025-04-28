@@ -147,7 +147,15 @@ def register_callbacks(app, all_monthly):
         filtered_df_log['date'] = filtered_df['date']
         rolling_beta = linreg(filtered_df_log[feature1], filtered_df_log[feature2])
         
-    
+        
+        # Calculate symmetric max range
+        corr_max = max(abs(rolling_corr.min()), abs(rolling_corr.max()))
+        beta_max = max(abs(rolling_beta.min()), abs(rolling_beta.max()))
+        
+        # Optionally expand a little for padding
+        corr_max *= 1.  # 0% padding
+        beta_max *= 1   # 0% padding
+            
         fig = go.Figure()
     
         fig.add_trace(go.Scatter(
@@ -172,13 +180,14 @@ def register_callbacks(app, all_monthly):
             yaxis=dict(
                 title='Rolling Pearson Correlation',
                 side='left',
-                range=[-1, 1],
+                range=[-corr_max, corr_max],
                 color='blue'
             ),
             yaxis2=dict(
                 title='Rolling Beta',
                 overlaying='y',
                 side='right',
+                range=[-beta_max, beta_max],
                 color='orange'
             ),
             width=1000,
