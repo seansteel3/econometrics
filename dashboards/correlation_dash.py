@@ -180,7 +180,7 @@ def register_callbacks(app, all_monthly):
             yaxis=dict(
                 title='Rolling Pearson Correlation',
                 side='left',
-                range= [-1,1] #[-corr_max, corr_max], #dynmaic option
+                range= [-1,1], #[-corr_max, corr_max], #dynmaic option
                 color='blue'
             ),
             yaxis2=dict(
