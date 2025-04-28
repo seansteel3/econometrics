@@ -80,6 +80,29 @@ def get_layout(all_monthly):
         ], style={'width': '100%', 'display': 'flex', 'justify-content': 'space-between'}),
         
         html.Div([
+            html.Div([dcc.Graph(id='participation-fig')], style={'width': '100%', 'display': 'inline-block'})
+        ], style={'width': '100%', 'display': 'flex', 'justify-content': 'space-between'}),
+        
+        html.Div([
+            html.Div([dcc.Graph(id='women_part-fig')], style={'width': '48%', 'display': 'inline-block'}),
+            html.Div([dcc.Graph(id='men_part-fig')], style={'width': '48%', 'display': 'inline-block'}),
+        ], style={'width': '100%', 'paddingTop': '20px'}),
+        
+        html.Div([
+            html.Div([dcc.Graph(id='part1619-fig')], style={'width': '48%', 'display': 'inline-block'}),
+            html.Div([dcc.Graph(id='part2024-fig')], style={'width': '48%', 'display': 'inline-block'}),
+        ], style={'width': '100%', 'paddingTop': '20px'}),
+        
+        html.Div([
+            html.Div([dcc.Graph(id='part2555-fig')], style={'width': '48%', 'display': 'inline-block'}),
+            html.Div([dcc.Graph(id='part55-fig')], style={'width': '48%', 'display': 'inline-block'}),
+        ], style={'width': '100%', 'paddingTop': '20px'}),
+        
+        html.Div([
+            html.Div([dcc.Graph(id='partimmg-fig')], style={'width': '100%', 'display': 'inline-block'})
+        ], style={'width': '100%', 'display': 'flex', 'justify-content': 'space-between'}),
+        
+        html.Div([
             html.Div([dcc.Graph(id='fed-fig')], style={'width': '48%', 'display': 'inline-block'}),
             html.Div([dcc.Graph(id='buisness-fig')], style={'width': '48%', 'display': 'inline-block'}),
         ], style={'width': '100%', 'paddingTop': '20px'}),
@@ -113,30 +136,6 @@ def get_layout(all_monthly):
             html.Div([dcc.Graph(id='health-fig')], style={'width': '48%', 'display': 'inline-block'}),
             html.Div([dcc.Graph(id='other-fig')], style={'width': '48%', 'display': 'inline-block'}),
         ], style={'width': '100%', 'paddingTop': '20px'}),
-        
-        
-        html.Div([
-            html.Div([dcc.Graph(id='participation-fig')], style={'width': '100%', 'display': 'inline-block'})
-        ], style={'width': '100%', 'display': 'flex', 'justify-content': 'space-between'}),
-        
-        html.Div([
-            html.Div([dcc.Graph(id='women_part-fig')], style={'width': '48%', 'display': 'inline-block'}),
-            html.Div([dcc.Graph(id='men_part-fig')], style={'width': '48%', 'display': 'inline-block'}),
-        ], style={'width': '100%', 'paddingTop': '20px'}),
-        
-        html.Div([
-            html.Div([dcc.Graph(id='part1619-fig')], style={'width': '48%', 'display': 'inline-block'}),
-            html.Div([dcc.Graph(id='part2024-fig')], style={'width': '48%', 'display': 'inline-block'}),
-        ], style={'width': '100%', 'paddingTop': '20px'}),
-        
-        html.Div([
-            html.Div([dcc.Graph(id='part2555-fig')], style={'width': '48%', 'display': 'inline-block'}),
-            html.Div([dcc.Graph(id='part55-fig')], style={'width': '48%', 'display': 'inline-block'}),
-        ], style={'width': '100%', 'paddingTop': '20px'}),
-        
-        html.Div([
-            html.Div([dcc.Graph(id='partimmg-fig')], style={'width': '100%', 'display': 'inline-block'})
-        ], style={'width': '100%', 'display': 'flex', 'justify-content': 'space-between'}),
         
         html.Div([
             html.Div([dcc.Graph(id='heatmap-employ-fig')], style={'width': '100%', 'display': 'inline-block'})
