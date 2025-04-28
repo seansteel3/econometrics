@@ -115,7 +115,7 @@ def get_layout(all_monthly):
                     style={
                         'textAlign': 'center',
                         'marginTop': '10px',
-                        'fontSize': '14px',
+                        'fontSize': '16px',
                         'color': 'gray'
                     }
                 )
