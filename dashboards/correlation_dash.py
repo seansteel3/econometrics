@@ -7,7 +7,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import pandas as pd
-from functs import make_lineplot_with_yoybars, generate_basic_heatmap, linreg
+from functs import make_lineplot_with_yoybars, generate_basic_heatmap, linreg_beta
 import yfinance as yf
 import numpy as np
 
@@ -202,6 +202,11 @@ def register_callbacks(app, all_monthly):
         )
     
         return fig
+    
+    
+    def update_scatter(clickData, filtered_df, window = 12):
+        if clickData is None:
+            return go.Figure()
 
     @app.callback(
         [Output('corr-heatmap', 'figure'),

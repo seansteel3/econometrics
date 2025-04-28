@@ -103,14 +103,17 @@ def generate_basic_heatmap(df, columns, new_column_names, width=800, height=800,
         )
     return heatmap
 
-def linreg(x,y):
-    mean_x = x.rolling(window=12).mean()
-    mean_y = y.rolling(window=12).mean()
-    cov_xy = (x * y).rolling(window=12).mean() - mean_x * mean_y
+def linreg_beta(x,y, window = 12):
+    mean_x = x.rolling(window=window).mean()
+    mean_y = y.rolling(window=window).mean()
+    cov_xy = (x * y).rolling(window=window).mean() - mean_x * mean_y
 
     # Rolling variance
-    var_x = (x * x).rolling(window=12).mean() - mean_x * mean_x
+    var_x = (x * x).rolling(window=window).mean() - mean_x * mean_x
     
     # Rolling beta
     beta = cov_xy / var_x
     return beta
+
+
+
