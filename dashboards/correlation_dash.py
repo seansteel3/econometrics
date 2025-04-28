@@ -145,7 +145,7 @@ def register_callbacks(app, all_monthly):
         
         filtered_df_log = np.log(filtered_df.iloc[:, 1:])
         filtered_df_log['date'] = filtered_df['date']
-        rolling_beta = linreg(filtered_df_log[feature1], filtered_df_log[feature2])
+        rolling_beta = linreg_beta(filtered_df_log[feature1], filtered_df_log[feature2])
         
         
         # Calculate symmetric max range
