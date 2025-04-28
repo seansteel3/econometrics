@@ -223,7 +223,7 @@ def register_callbacks(app, all_monthly):
             x=filtered_df[feature1],
             y=filtered_df[feature2],
             title=f"Scatter Plot: {feature1} vs {feature2}",
-            trendline="ols",
+            #trendline="ols",
             width=1000,
             height=500
         )
