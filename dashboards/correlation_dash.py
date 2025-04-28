@@ -211,24 +211,7 @@ def register_callbacks(app, all_monthly):
     
     
     def update_scatter(clickData, filtered_df):
-        '''
-        if clickData is None:
-            return go.Figure()
         
-        # Parse clicked features
-        feature1 = clickData['points'][0]['x']
-        feature2 = clickData['points'][0]['y']
-        
-        fig = px.scatter(
-            filtered_df,
-            x=filtered_df[feature1],
-            y=filtered_df[feature2],
-            title=f"Scatter Plot: {feature1} vs {feature2}",
-            #trendline="ols",
-            width=1000,
-            height=500
-        )
-        '''
         if clickData is None:
             return go.Figure()
         
@@ -253,7 +236,8 @@ def register_callbacks(app, all_monthly):
                 color='blue',        # Marker color
                 #size=8,              # (optional) Marker size
                 #opacity=0.7          # (optional) Marker opacity
-            )
+            ),
+            showlegend=False 
         ))
         
         #regression line
@@ -265,7 +249,8 @@ def register_callbacks(app, all_monthly):
             y=y_vals,
             mode='lines',
             name='OLS Trendline',
-            line=dict(color='red')
+            line=dict(color='red'),
+            showlegend=False 
         ))
         
         fig.update_layout(
