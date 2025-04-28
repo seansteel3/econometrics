@@ -193,6 +193,7 @@ def register_callbacks(app, all_monthly):
     )
 
     def update_graphs(start_date, end_date, reset_clicks, clickData):
+        from dash import  ctx
         triggered_id = ctx.triggered_id
         
         # Set default values
