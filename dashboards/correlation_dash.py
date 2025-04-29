@@ -13,7 +13,6 @@ import numpy as np
 from datetime import datetime
 
 
-
 def get_data(all_monthly):
     #get external financial data from yfinance
     start = "1990-01-01"
@@ -22,6 +21,8 @@ def get_data(all_monthly):
     yf_data = yf.download(yfin_tickers, start=start, end = end, interval='1d', progress = False)
     yf_data = yf_data['Close']
     yf_data = yf_data.resample('ME').last()
+    
+    print(len(yf_data))
     
     #columns to use from rest of montly data
     monthly_cols = ['cpi_all', 'cpi_energy', 'cpi_food','cpi_shelter', 'cpi_airfare', 
