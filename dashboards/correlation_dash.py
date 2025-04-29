@@ -10,14 +10,16 @@ import pandas as pd
 from functs import make_lineplot_with_yoybars, generate_basic_heatmap, linreg_beta
 import yfinance as yf
 import numpy as np
+from datetime import datetime
 
 
 
 def get_data(all_monthly):
     #get external financial data from yfinance
     start = "1990-01-01"
+    end = datetime.today().strftime("%Y-%m-%d")
     yfin_tickers = ["^GSPC","^RUT","GC=F","DX-Y.NYB","USDCNY=X","EURUSD=X", "BTC-USD"]
-    yf_data = yf.download(yfin_tickers, start=start, interval='1d', progress = False)
+    yf_data = yf.download(yfin_tickers, start=start, end = end, interval='1d', progress = False)
     yf_data = yf_data['Close']
     yf_data = yf_data.resample('ME').last()
     
