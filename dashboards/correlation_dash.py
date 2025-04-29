@@ -18,16 +18,17 @@ def get_data(all_monthly):
     start = "1990-01-01"
     end = datetime.today().strftime("%Y-%m-%d")
     yfin_tickers = ["^GSPC","^RUT","GC=F","DX-Y.NYB","USDCNY=X","EURUSD=X", "BTC-USD"]
-    yf_data = yf.download(yfin_tickers, start=start, end = end, interval='1d', progress = False)
-    yf_data = yf_data['Close']
-    yf_data = yf_data.resample('ME').last()
+    tickers_rename = ['SP500', 'Rut2000', 'Gold', 'DXY', 'CHY', 'Euro', 'Bitcoin']
+    yf_datas = []
+    for tik in yfin_tickers:
+        yf_data = yf.download(tik, start=start, end = end, interval='1d', progress = False)
+        yf_data = yf_data['Close']
+        yf_data = yf_data.resample('ME').last()
+        yf_datas.append(yf_data)
+    yf_data = yf_datas[0]
+    for df in yf_datas[1:]:
+        yf_data = yf_data.join(df, how='outer')
     
-    print(yf_data.iloc[:, 0])
-    print(yf_data.iloc[:, 1])
-    print(yf_data.iloc[:, 2])
-    print(yf_data.iloc[:, 3])
-    print(yf_data.iloc[:, 4])
-    print(yf_data.iloc[:, 5])
 
     
     #columns to use from rest of montly data
@@ -87,11 +88,11 @@ def get_data(all_monthly):
     monthly_data = all_monthly[monthly_cols]
     monthly_data.columns = col_renames
     monthly_data = pd.merge(yf_data, monthly_data, left_index=True, right_index=True)
-    monthly_data.columns = ['SP500', 'Rut2000', 'Gold', 'DXY', 'CHY', 'Euro', 'Bitcoin'] + col_renames
+    monthly_data.columns = tickers_rename + col_renames
 
     corr_df = monthly_data.copy()
     corr_df.reset_index(inplace = True)
-    corr_df.columns = ['date'] + ['SP500', 'Rut2000', 'Gold', 'DXY', 'CHY', 'Euro', 'Bitcoin'] + col_renames
+    corr_df.columns = ['date'] + tickers_rename + col_renames
     
     return corr_df, col_renames
 
