@@ -16,7 +16,7 @@ import numpy as np
 def get_data(all_monthly):
     #get external financial data from yfinance
     start = "1990-01-01"
-    yfin_tickers = ["^GSPC","^RUT","GC=F","DX-Y.NYB","USDCNY=X","EURUSD=X"]
+    yfin_tickers = ["^GSPC","^RUT","GC=F","DX-Y.NYB","USDCNY=X","EURUSD=X", "BTC-USD"]
     yf_data = yf.download(yfin_tickers, start=start, interval='1d', progress = False)
     yf_data = yf_data['Close']
     yf_data = yf_data.resample('ME').last()
@@ -78,11 +78,11 @@ def get_data(all_monthly):
     monthly_data = all_monthly[monthly_cols]
     monthly_data.columns = col_renames
     monthly_data = pd.merge(yf_data, monthly_data, left_index=True, right_index=True)
-    monthly_data.columns = ['SP500', 'Rut2000', 'Gold', 'DXY', 'CHY', 'Euro'] + col_renames
+    monthly_data.columns = ['SP500', 'Rut2000', 'Gold', 'DXY', 'CHY', 'Euro', 'Bitcoin'] + col_renames
 
     corr_df = monthly_data.copy()
     corr_df.reset_index(inplace = True)
-    corr_df.columns = ['date'] + ['SP500', 'Rut2000', 'Gold', 'DXY', 'CHY', 'Euro'] + col_renames
+    corr_df.columns = ['date'] + ['SP500', 'Rut2000', 'Gold', 'DXY', 'CHY', 'Euro', 'Bitcoin'] + col_renames
     
     return corr_df, col_renames
 
@@ -355,8 +355,8 @@ def register_callbacks(app, all_monthly):
         filtered_df = corr_df.loc[mask]
         
         heatmap = generate_basic_heatmap(filtered_df, 
-                                         ['SP500', 'Rut2000', 'Gold', 'DXY', 'CHY', 'Euro'] + col_renames,
-                                         ['SP500', 'Rut2000', 'Gold', 'DXY', 'CHY', 'Euro'] + col_renames,
+                                         ['SP500', 'Rut2000', 'Gold', 'DXY', 'CHY', 'Euro', 'Bitcoin'] + col_renames,
+                                         ['SP500', 'Rut2000', 'Gold', 'DXY', 'CHY', 'Euro', 'Bitcoin'] + col_renames,
                                          width=900, height=900, title = False)
         
         corr_fig = update_betaplot(clickData, filtered_df, window = 12)
