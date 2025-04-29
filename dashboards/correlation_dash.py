@@ -121,7 +121,7 @@ def get_layout(all_monthly):
             html.Div([
                 dcc.Graph(id='rolling-corr'),
                 html.Div(
-                    "Correlations are the linear correlation coefficient describing the direction and strength of the relationship between the variables. Beta values decribe the magnitude of the relationship. Beta values can be interpreted as 'a 1% increase in one variable results in an N% change in the other.'",
+                    "Correlations are the linear correlation coefficient describing the direction and strength of the relationship between the variables. Beta values decribe the magnitude of the relationship. Beta values can be interpreted as a 1% increase in one variable results in an N% change in the other.",
                     style={
                         'textAlign': 'center',
                         'marginTop': '10px',
