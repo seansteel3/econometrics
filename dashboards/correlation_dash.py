@@ -22,16 +22,12 @@ def get_data(all_monthly):
     yf_data = yf_data['Close']
     yf_data = yf_data.resample('ME').last()
     
-    print(len(yf_data.iloc[:, 0].dropna()))
-    print(len(yf_data.iloc[:, 1].dropna()))
-
-    print(len(yf_data.iloc[:, 2].dropna()))
-
-    print(len(yf_data.iloc[:, 3].dropna()))
-
-    print(len(yf_data.iloc[:, 4].dropna()))
-
-    print(len(yf_data.iloc[:, 5].dropna()))
+    print(yf_data.iloc[:, 0])
+    print(yf_data.iloc[:, 1])
+    print(yf_data.iloc[:, 2])
+    print(yf_data.iloc[:, 3])
+    print(yf_data.iloc[:, 4])
+    print(yf_data.iloc[:, 5])
 
     
     #columns to use from rest of montly data
