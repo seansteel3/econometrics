@@ -32,7 +32,7 @@ def get_data(all_monthly):
 
     
     #columns to use from rest of montly data
-    monthly_cols = ['cpi_all', 'cpi_energy', 'cpi_food','cpi_shelter', 'cpi_airfare', 
+    monthly_cols = ['gdp', 'cpi_all', 'cpi_energy', 'cpi_food','cpi_shelter', 'cpi_airfare', 
      'cpi_transport', 'cpi_services', 'us_gasprice', 'egg_price', 'bananas_price', 'oil_price', 'electricity_price',
      'oj_price', 'bread_price', 'ground_beef_price', 'tomato_price', 'strawberry_price', 'coffee_price',
      'all_construction_spend', 'housing_under_construction', 'total_manufact_orders', 'durable_manufact_orders', 
@@ -58,7 +58,7 @@ def get_data(all_monthly):
      'total_crude_oil_import', 'total_crude_oil_export', 
      'total_million_tons_co2']
     
-    col_renames = new_names = [
+    col_renames = new_names = [ 'GDP',
         'CPI All', 'CPI Energy', 'CPI Food', 'CPI Shelter', 'CPI Airfare',
         'CPI Transport', 'CPI Services', 'Gas Price', 'Egg Price', 'Banana Price', 'Oil Price', 'Electricity Price',
         'OJ Price', 'Bread Price', 'Beef Price', 'Tomato Price', 'Strawberry Price', 'Coffee Price',
