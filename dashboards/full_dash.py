@@ -15,6 +15,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 from matplotlib.collections import LineCollection
+from tqdm import tqdm
 
 import dash
 from dash import dcc, html, Input, Output, State, ctx
@@ -105,7 +106,7 @@ def main():
 
     fred_datas = []
     eia_datas = []
-    for i in range(len(source_df)):
+    for i in tqdm(range(len(source_df))):
         if source_df['source'].iloc[i] == 'fred':
             fred_data_name = source_df['data_name'].iloc[i]
             data = pd.DataFrame(fred.get_series(fred_data_name))
