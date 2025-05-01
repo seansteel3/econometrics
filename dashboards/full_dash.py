@@ -37,7 +37,7 @@ from dashboards.correlation_dash import register_callbacks as register_callbacks
 
 def main():
     
-    print("Loading data (This can take up to 2min)...")
+    print("Loading data (This can take up to 5min)...")
 
     #%% Functions
     def core_eia_apicall(eia_api_key, url):

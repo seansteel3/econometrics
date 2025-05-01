@@ -28,7 +28,7 @@ def open_browser():
     time.sleep(20)  
     webbrowser.open("http://127.0.0.1:8050/")
     
-def wait_until_server_is_up(url="http://127.0.0.1:8050/", timeout=360):
+def wait_until_server_is_up(url="http://127.0.0.1:8050/", timeout=1500):
     """Polls the server until it responds or times out."""
     start_time = time.time()
     while time.time() - start_time < timeout:
